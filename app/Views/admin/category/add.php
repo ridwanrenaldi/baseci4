@@ -14,13 +14,6 @@
 
                 <div class="row">
                     <div class="col-12">
-                    <?php if (! empty($errors)): ?>
-                    <div class="alert alert-danger">
-                    <?php foreach ($errors as $field => $error): ?>
-                        <p><?= $error ?></p>
-                    <?php endforeach ?>
-                    </div>
-                    <?php endif ?>
                         <div class="card card-info">
                             <!-- Card Header -->
                             <?= $this->include('admin/layout/cardheader') ?>
@@ -33,14 +26,14 @@
                                     <div class="form-group row">
                                         <label for="_name_" class="col-sm-3 col-form-label text-right">Name</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="_name_" class="form-control" id="_name_" placeholder="Name">
+                                            <input type="text" name="_name_" class="form-control" id="_name_" placeholder="Name" value="<?= old('_name_') ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="_description_" class="col-sm-3 col-form-label text-right">Description</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="_description_" class="form-control" id="_description_" placeholder="Description">
+                                            <input type="text" name="_description_" class="form-control" id="_description_" placeholder="Description" value="<?= old('_description_') ?>">
                                         </div>
                                     </div>
 

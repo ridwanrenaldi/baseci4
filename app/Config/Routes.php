@@ -48,7 +48,7 @@ $routes->group('admin', static function($routes) {
     $routes->group('category', static function($routes){
         $routes->get('table', 'Admin\Category::index');
         $routes->add('add', 'Admin\Category::add');
-        $routes->add('edit', 'Admin\Category::edit');
+        $routes->add('edit/(:num)', 'Admin\Category::edit/$1');
     });
 });
 

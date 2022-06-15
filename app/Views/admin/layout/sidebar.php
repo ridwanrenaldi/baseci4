@@ -1,4 +1,10 @@
 
+    <?php
+        $uri = \Config\Services::uri()->getSegments();
+        $menu = implode(array_slice($uri,0,2));
+        $submenu = implode($uri);
+    ?>
+
     <aside class="main-sidebar sidebar-dark-info elevation-4">
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
@@ -43,8 +49,8 @@
                         </a>
                     </li>
 
-                    <li class="nav-item <?php echo $path[0].$path[1] == 'admincategory' ? 'menu-open': '' ?>">
-                        <a href="#" class="nav-link <?php echo $path[0].$path[1] == 'admincategory' ? 'active': '' ?>">
+                    <li class="nav-item <?php echo $menu == 'admincategory' ? 'menu-open': '' ?>">
+                        <a href="#" class="nav-link <?php echo $menu == 'admincategory' ? 'active': '' ?>">
                             <i class="nav-icon fas fa-tags"></i>
                             <p>
                                 Category
@@ -54,13 +60,13 @@
 
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url('admin/category/table') ?>" class="nav-link <?php echo $path[0].$path[1].$path[2] == 'admincategorytable' ? 'active': '' ?>">
+                                <a href="<?= site_url('admin/category/table') ?>" class="nav-link <?php echo $submenu == 'admincategorytable' ? 'active': '' ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Table</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url('admin/category/add') ?>" class="nav-link <?php echo $path[0].$path[1].$path[2] == 'admincategoryadd' ? 'active': '' ?>">
+                                <a href="<?= site_url('admin/category/add') ?>" class="nav-link <?php echo $submenu == 'admincategoryadd' ? 'active': '' ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add</p>
                                 </a>
@@ -68,8 +74,8 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item <?php echo $path[0].$path[1] == 'adminproduct' ? 'menu-open': '' ?>">
-                        <a href="#" class="nav-link <?php echo $path[0].$path[1] == 'adminproduct' ? 'active': '' ?>">
+                    <li class="nav-item <?php echo $menu == 'adminproduct' ? 'menu-open': '' ?>">
+                        <a href="#" class="nav-link <?php echo $menu == 'adminproduct' ? 'active': '' ?>">
                             <i class="nav-icon fas fas fa-boxes"></i>
                             <p>
                                 Product
@@ -79,13 +85,13 @@
 
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="<?= site_url('admin/product/table') ?>" class="nav-link <?php echo $path[0].$path[1].$path[2] == 'adminproducttable' ? 'active': '' ?>">
+                                <a href="<?= site_url('admin/product/table') ?>" class="nav-link <?php echo $submenu == 'adminproducttable' ? 'active': '' ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Table</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?= site_url('admin/product/add') ?>" class="nav-link <?php echo $path[0].$path[1].$path[2] == 'adminproductadd' ? 'active': '' ?>">
+                                <a href="<?= site_url('admin/product/add') ?>" class="nav-link <?php echo $submenu == 'adminproductadd' ? 'active': '' ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add</p>
                                 </a>

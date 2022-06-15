@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-    <?= $this->include('admin/layout/header') ?>
+    <?= $this->include('admin/layout/head') ?>
     <?= $this->renderSection('head') ?>
 
 </head>
