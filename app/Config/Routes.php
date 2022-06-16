@@ -49,6 +49,14 @@ $routes->group('admin', static function($routes) {
         $routes->get('table', 'Admin\Category::index');
         $routes->add('add', 'Admin\Category::add');
         $routes->add('edit/(:num)', 'Admin\Category::edit/$1');
+        $routes->delete('delete/(:num)', 'Admin\Category::delete/$1');
+    });
+
+    $routes->group('product', static function($routes){
+        $routes->get('table', 'Admin\Product::index');
+        $routes->add('add', 'Admin\Product::add');
+        $routes->add('edit/(:num)', 'Admin\Product::edit/$1');
+        $routes->delete('delete/(:num)', 'Admin\Product::delete/$1');
     });
 });
 

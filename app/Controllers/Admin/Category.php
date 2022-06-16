@@ -26,21 +26,20 @@ class Category extends BaseController
         $data['datatables']     = true;
 
         // ===[Setting View]===
-        $data['title'] = 'Table Data';
-        $data['breadcrumb'] = [
-            'Category' => site_url('admin/category/index'),
-            'Table'   => site_url('admin/category/index'),
+        $data['title']          = 'Table Data';
+        $data['breadcrumb']     = [
+            'Category'  => site_url('admin/category/index'),
+            'Table'     => site_url('admin/category/index'),
         ];
-        $data['cardheader']    = [
-            'title' => 'Table',
-            'url' => site_url('admin/category/add'),
-            'name' => 'Add Category',
+        $data['cardheader']     = [
+            'title'     => 'Table',
+            'url'       => site_url('admin/category/add'),
+            'name'      => 'Add Category',
         ];
 
 
+        // ===[Fetch Data]===
         $data['data'] = $this->category->findAll();
-        // var_dump($data['data']);
-        // die;
 
         // ===[Load View]===
         return view('admin/category/table', $data);
@@ -61,41 +60,36 @@ class Category extends BaseController
         $data['datatables']     = false;
 
         // ===[Setting View]===
-        $data['title'] = 'Form Add';
-        $data['cardheader']    = ['title' => 'Form Add'];
-        $data['breadcrumb'] = [
-            'Category' => site_url('admin/category/index'),
-            'Add'   => site_url('admin/category/index'),
+        $data['title']          = 'Form Add';
+        $data['cardheader']     = ['title' => 'Form Input'];
+        $data['breadcrumb']     = [
+            'Category'  => site_url('admin/category/index'),
+            'Add'       => site_url('admin/category/index'),
         ];
 
         // ===[Insert Logic]===
         if ($this->request->getPost()) {
             $insert = [
-                'category_name' => $this->request->getPost('_name_'),
-                'category_description' => $this->request->getPost('_description_')
+                'category_name'         => $this->request->getPost('_name_'),
+                'category_description'  => $this->request->getPost('_description_')
             ];
 
             if ($this->category->insert($insert) === false) {
                 $data['notif'] = [
-                    'status'=>'error', 
-                    'title'=>'Oops...', 
-                    'message'=>ListHtml($this->category->errors(), '<ul>', '</ul>')
+                    'status'    =>'error', 
+                    'title'     =>'Oops...', 
+                    'message'   =>ListHtml($this->category->errors(), '<ul>', '</ul>')
                 ];
                 return redirect()->to('admin/category/add')->with('notif', $data['notif'])->withInput();
             } else {
                 $data['notif'] = [
-                    'status'=>'success', 
-                    'title'=>'Success!', 
-                    'message'=>'Success insert data', 
-                    'redirect'=>site_url('admin/category/table')
+                    'status'    =>'success', 
+                    'title'     =>'Success!', 
+                    'message'   =>'Success insert data', 
+                    'redirect'  =>site_url('admin/category/table')
                 ];
                 return redirect()->to('admin/category/add')->with('notif', $data['notif']);
             }
-        }
-
-
-        if ($this->session->has('notif')) {
-            $data['notif'] = $this->session->getFlashdata('notif');
         }
 
         // ===[Load View]===
@@ -118,33 +112,33 @@ class Category extends BaseController
 
 
         // ===[Setting View]===
-        $data['title'] = 'Form Add';
-        $data['cardheader']    = ['title' => 'Form Add'];
-        $data['breadcrumb'] = [
-            'Category' => site_url('admin/category/index'),
-            'Add'   => site_url('admin/category/index'),
+        $data['title']          = 'Form Edit';
+        $data['cardheader']     = ['title' => 'Form Input'];
+        $data['breadcrumb']     = [
+            'Category'  => site_url('admin/category/index'),
+            'Edit'      => site_url('admin/category/index'),
         ];
 
         // ===[Update Logic]===
         if ($this->request->getPost()) {
             $update = [
-                'category_name' => $this->request->getPost('_name_'),
-                'category_description' => $this->request->getPost('_description_')
+                'category_name'         => $this->request->getPost('_name_'),
+                'category_description'  => $this->request->getPost('_description_')
             ];
 
             if ($this->category->update($id, $update) === false) {
                 $data['notif'] = [
-                    'status'=>'error', 
-                    'title'=>'Oops...', 
-                    'message'=>ListHtml($this->category->errors(), '<ul>', '</ul>')
+                    'status'    =>'error', 
+                    'title'     =>'Oops...', 
+                    'message'   =>ListHtml($this->category->errors(), '<ul>', '</ul>')
                 ];
                 return redirect()->to('admin/category/edit/'.$id)->with('notif', $data['notif'])->withInput();
             } else {
                 $data['notif'] = [
-                    'status'=>'success', 
-                    'title'=>'Success!', 
-                    'message'=>'Success insert data', 
-                    'redirect'=>site_url('admin/category/table')
+                    'status'    =>'success', 
+                    'title'     =>'Success!', 
+                    'message'   =>'Success update data', 
+                    'redirect'  =>site_url('admin/category/table')
                 ];
                 return redirect()->to('admin/category/edit/'.$id)->with('notif', $data['notif']);
             }
@@ -156,12 +150,35 @@ class Category extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Tidak Ditemukan');
         }
 
-        // ===[Get Notif]===
-        if ($this->session->has('notif')) {
-            $data['notif'] = $this->session->getFlashdata('notif');
-        }
-
         // ===[Load View]===
         return view('admin/category/edit', $data);
+    }
+
+
+    
+    public function delete($id){
+        // ===[If Data Not Found]===
+        if (!$this->category->find($id)) {
+            $data['notif'] = [
+                'status'    =>'error', 
+                'title'     =>'Oops...', 
+                'message'   =>'Data not found!',
+            ];
+            return redirect()->to('admin/category/table')->with('notif', $data['notif']);
+
+        // ===[Logic Delete]===
+        } else {
+            $this->category->delete($id); // useSoftDeletes = true "Check The Model"
+
+            // Cleans out the database table by permanently removing all rows that have ‘deleted_at IS NOT NULL’.
+            $this->category->purgeDeleted();
+
+            $data['notif'] = [
+                'status'    =>'success', 
+                'title'     =>'Success!', 
+                'message'   =>'Success delete data',
+            ];
+            return redirect()->to('admin/category/table')->with('notif', $data['notif']);
+        }
     }
 }

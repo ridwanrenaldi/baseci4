@@ -12,7 +12,7 @@ class Category extends Model
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = ['category_name', 'category_description'];
 
@@ -27,7 +27,7 @@ class Category extends Model
     protected $validationRules      = [
         'category_name' => [
             'label' => 'Name',
-            'rules' => 'required|alpha_numeric_space|min_length[250]'
+            'rules' => 'required|alpha_numeric_space|max_length[250]'
         ],
 
         'category_description' => [

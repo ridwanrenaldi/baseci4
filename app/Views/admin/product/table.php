@@ -24,8 +24,13 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Code</th>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Stock</th>
+                                        <th>Capital</th>
+                                        <th>Price</th>
+                                        <th>Image</th>
                                         <th>Created</th>
                                         <th>Modified</th>
                                         <th>Action</th>
@@ -35,16 +40,21 @@
                                     <?php foreach ($data as $key => $value) { ?>
                                     <tr>
                                         <td><?= ++$key ?></td>
-                                        <td><?= $value['category_name'] ?></td>
-                                        <td><?= $value['category_description'] ?></td>
-                                        <td><?= $value['category_created'] ?></td>
-                                        <td><?= $value['category_modified'] ?></td>
+                                        <td><?= $value['product_code'] ?></td>
+                                        <td><?= $value['product_name'] ?></td>
+                                        <td><?= $value['product_description'] ?></td>
+                                        <td><?= $value['product_stock'] ?></td>
+                                        <td><?= $value['product_capital'] ?></td>
+                                        <td><?= $value['product_price'] ?></td>
+                                        <td><?= $value['product_image'] ?></td>
+                                        <td><?= $value['product_created'] ?></td>
+                                        <td><?= $value['product_modified'] ?></td>
                                         <td>
-                                            <a href="<?php echo site_url('admin/category/edit/'.$value['category_id'])?>" data-toggle="tooltip" title="Edit">
+                                            <a href="<?php echo site_url('admin/product/edit/'.$value['product_id'])?>" data-toggle="tooltip" title="Edit">
                                                 <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                                             </a>
 
-                                            <?= form_open('admin/category/delete/'.$value['category_id'], ['class'=>'d-inline']) ?>
+                                            <?= form_open('admin/product/delete/'.$value['product_id'], ['class'=>'d-inline']) ?>
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></button>
                                             <?= form_close() ?>
@@ -81,9 +91,7 @@
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
             });
-            
         });
-
     });
 </script>
 <?= $this->endSection() ?>

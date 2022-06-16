@@ -34,6 +34,10 @@
     <?php if(isset($select2) && $select2) { ?>
         <!-- Select2 -->
         <script src="<?= base_url('template/plugins/select2/js/select2.full.min.js') ?>"></script>
+        <script>
+            //Initialize Select2 Elements
+            $(function () { $('.select2bs4').select2({ theme: 'bootstrap4' }); })
+        </script>
     <?php } ?>
 
     
@@ -72,15 +76,16 @@
     <?php } ?>
 
 
-    <?php if(isset($notif)) { ?>
-        <script src="<?= base_url('dist/js/main.js') ?>"></script>
+    <?php if(session()->has('notif')) { ?>
+        <!-- Display Notification -->
+        <script src="<?= base_url('dist/js/notif.js') ?>"></script>
         <script>
             $(document).ready(function(){
                 notif(
-                    "<?php if(isset($notif["status"]) && !empty($notif["status"])) { echo $notif["status"]; } ?>",
-                    "<?php if(isset($notif["title"]) && !empty($notif["title"])) { echo $notif["title"]; } ?>",
-                    "<?php if(isset($notif["message"]) && !empty($notif["message"])) { echo $notif["message"]; } ?>",
-                    "<?php if(isset($notif["redirect"]) && !empty($notif["redirect"])) { echo $notif["redirect"]; } ?>",
+                    "<?= isset(session()->getFlashdata('notif')['status']) ? session()->getFlashdata('notif')['status'] : '' ?>",
+                    "<?= isset(session()->getFlashdata('notif')['title']) ? session()->getFlashdata('notif')['title'] : '' ?>",
+                    "<?= isset(session()->getFlashdata('notif')['message']) ? session()->getFlashdata('notif')['message'] : '' ?>",
+                    "<?= isset(session()->getFlashdata('notif')['redirect']) ? session()->getFlashdata('notif')['redirect'] : '' ?>"
                 );
             });
         </script>
