@@ -168,10 +168,7 @@ class Category extends BaseController
 
         // ===[Logic Delete]===
         } else {
-            $this->category->delete($id); // useSoftDeletes = true "Check The Model"
-
-            // Cleans out the database table by permanently removing all rows that have ‘deleted_at IS NOT NULL’.
-            $this->category->purgeDeleted();
+            $this->category->delete($id); // useSoftDeletes = false "Check The Model"
 
             $data['notif'] = [
                 'status'    =>'success', 

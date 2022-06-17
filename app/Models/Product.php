@@ -12,7 +12,7 @@ class Product extends Model
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = true;
+    protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['category_id', 'product_code', 'product_name', 'product_description', 'product_stock', 'product_capital', 'product_price', 'product_image'];
 
@@ -68,6 +68,14 @@ class Product extends Model
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
+
+    
+    protected $imageRules = [
+        '_image_' => [
+            'label' => 'Image',
+            'rules' => 'max_size[_image_,2048]|mime_in[_image_,image/png,image/jpg,image/jpeg]|ext_in[_image_,png,jpg,gif,jpeg]|is_image[_image_]'
+        ],
+    ];
 
 
 }

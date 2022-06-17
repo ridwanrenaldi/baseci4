@@ -4,13 +4,12 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 
-class Product extends BaseController
+class Account extends BaseController
 {
     public function __construct()
     {
-        $this->category     = model('App\Models\Category');
-        $this->product      = model('App\Models\Product');
-        $this->uploaddir    = WRITEPATH . 'uploads/product/';
+        $this->account      = model('App\Models\Account');
+        $this->uploaddir    = WRITEPATH . 'uploads/account/';
     }
 
 
@@ -30,21 +29,21 @@ class Product extends BaseController
         // ===[Setting View]===
         $data['title']          = 'Table Data';
         $data['breadcrumb']     = [
-            'Product'   => site_url('admin/product/index'),
-            'Table'     => site_url('admin/product/index'),
+            'Account'   => site_url('admin/account/index'),
+            'Table'     => site_url('admin/account/index'),
         ];
         $data['cardheader'] = [
             'title'     => 'Table',
-            'url'       => site_url('admin/product/add'),
-            'name'      => 'Add Product',
+            'url'       => site_url('admin/account/add'),
+            'name'      => 'Add Account',
         ];
 
 
         // ===[Fetch Data]===
-        $data['data'] = $this->product->findAll();
+        $data['data'] = $this->account->findAll();
 
         // ===[Load View]===
-        return view('admin/product/table', $data);
+        return view('admin/account/table', $data);
     }
 
 
@@ -65,8 +64,8 @@ class Product extends BaseController
         $data['title']          = 'Form Add';
         $data['cardheader']     = ['title' => 'Form Input'];
         $data['breadcrumb']     = [
-            'Product'   => site_url('admin/product/index'),
-            'Add'       => site_url('admin/product/index'),
+            'Account'   => site_url('admin/account/index'),
+            'Add'       => site_url('admin/account/index'),
         ];
 
 
@@ -74,13 +73,13 @@ class Product extends BaseController
         if ($this->request->getPost()) {
 
             // ===[Validate Image]===
-            if (!$this->validate($this->product->imageRules)) {
+            if (!$this->validate($this->account->imageRules)) {
                 $data['notif'] = [
                     'status'    =>'error', 
                     'title'     =>'Oops...', 
                     'message'   =>ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/account/add')->with('notif', $data['notif'])->withInput();
 
             } else {
                 // ===[Save Image]===
@@ -95,22 +94,22 @@ class Product extends BaseController
                 // ===[Insert Data To Database]===
                 $insert = [
                     'category_id'           => $this->request->getPost('_category_'),
-                    'product_code'          => strtoupper(bin2hex(random_bytes(3))),
-                    'product_name'          => $this->request->getPost('_name_'),
-                    'product_description'   => $this->request->getPost('_description_'),
-                    'product_stock'         => $this->request->getPost('_stock_'),
-                    'product_capital'       => $this->request->getPost('_capital_'),
-                    'product_price'         => $this->request->getPost('_price_'),
-                    'product_image'         => $imgname,
+                    'account_code'          => strtoupper(bin2hex(random_bytes(3))),
+                    'account_name'          => $this->request->getPost('_name_'),
+                    'account_description'   => $this->request->getPost('_description_'),
+                    'account_stock'         => $this->request->getPost('_stock_'),
+                    'account_capital'       => $this->request->getPost('_capital_'),
+                    'account_price'         => $this->request->getPost('_price_'),
+                    'account_image'         => $imgname,
                 ];
     
-                if ($this->product->insert($insert) === false) {
+                if ($this->account->insert($insert) === false) {
                     $data['notif'] = [
                         'status'    =>'error', 
                         'title'     =>'Oops...', 
-                        'message'   =>ListHtml($this->product->errors(), '<ul>', '</ul>')
+                        'message'   =>ListHtml($this->account->errors(), '<ul>', '</ul>')
                     ];
-                    return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
+                    return redirect()->to('admin/account/add')->with('notif', $data['notif'])->withInput();
                 } else {
                     
 
@@ -118,19 +117,15 @@ class Product extends BaseController
                         'status'    =>'success', 
                         'title'     =>'Success!', 
                         'message'   =>'Success insert data', 
-                        'redirect'  =>site_url('admin/product/table')
+                        'redirect'  =>site_url('admin/account/table')
                     ];
-                    return redirect()->to('admin/product/add')->with('notif', $data['notif']);
+                    return redirect()->to('admin/account/add')->with('notif', $data['notif']);
                 }
             }
         }
 
-
-        // ===[Fetch Data]===
-        $data['category'] = $this->category->findAll();
-
         // ===[Load View]===
-        return view('admin/product/add', $data);
+        return view('admin/account/add', $data);
     }
 
 
@@ -152,53 +147,53 @@ class Product extends BaseController
         $data['title']          = 'Form Edit';
         $data['cardheader']     = ['title' => 'Form Input'];
         $data['breadcrumb']     = [
-            'Product'   => site_url('admin/product/index'),
-            'Edit'      => site_url('admin/product/index'),
+            'Account'   => site_url('admin/account/index'),
+            'Edit'      => site_url('admin/account/index'),
         ];
 
         // ===[Update Logic]===
         if ($this->request->getPost()) {
 
             // ===[Validate Image]===
-            if (!$this->validate($this->product->imageRules)) {
+            if (!$this->validate($this->account->imageRules)) {
                 $data['notif'] = [
                     'status'    =>'error', 
                     'title'     =>'Oops...', 
                     'message'   =>ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/account/add')->with('notif', $data['notif'])->withInput();
 
             } else {
                 
                 // ===[Insert Data To Database]===
                 $update = [
                     'category_id'           => $this->request->getPost('_category_'),
-                    'product_name'          => $this->request->getPost('_name_'),
-                    'product_description'   => $this->request->getPost('_description_'),
-                    'product_stock'         => $this->request->getPost('_stock_'),
-                    'product_capital'       => $this->request->getPost('_capital_'),
-                    'product_price'         => $this->request->getPost('_price_'),
+                    'account_name'          => $this->request->getPost('_name_'),
+                    'account_description'   => $this->request->getPost('_description_'),
+                    'account_stock'         => $this->request->getPost('_stock_'),
+                    'account_capital'       => $this->request->getPost('_capital_'),
+                    'account_price'         => $this->request->getPost('_price_'),
                 ];
                 
                 // ===[Save Image If Uploaded]===
                 $image = $this->request->getFile('_image_');
                 if ($image->isValid() && !$image->hasMoved()) {
                     $imgname = $image->getRandomName();
-                    $update['product_image'] = $imgname;
+                    $update['account_image'] = $imgname;
                     $image->move($this->uploaddir, $imgname);
 
-                    $product = $this->product->find($id);
-                    delete_file($this->uploaddir.$product['product_image']);
+                    $account = $this->account->find($id);
+                    delete_file($this->uploaddir.$account['account_image']);
                 }
 
     
-                if ($this->product->update($id, $update) === false) {
+                if ($this->account->update($id, $update) === false) {
                     $data['notif'] = [
                         'status'    =>'error', 
                         'title'     =>'Oops...', 
-                        'message'   =>ListHtml($this->product->errors(), '<ul>', '</ul>')
+                        'message'   =>ListHtml($this->account->errors(), '<ul>', '</ul>')
                     ];
-                    return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
+                    return redirect()->to('admin/account/add')->with('notif', $data['notif'])->withInput();
                 } else {
                     
 
@@ -206,49 +201,48 @@ class Product extends BaseController
                         'status'    =>'success', 
                         'title'     =>'Success!', 
                         'message'   =>'Success insert data', 
-                        'redirect'  =>site_url('admin/product/table')
+                        'redirect'  =>site_url('admin/account/table')
                     ];
-                    return redirect()->to('admin/product/add')->with('notif', $data['notif']);
+                    return redirect()->to('admin/account/add')->with('notif', $data['notif']);
                 }
             }
         }
 
         // ===[Fetch Data]===
-        $data['data'] = $this->product->find($id);
-        $data['category'] = $this->category->findAll();
+        $data['data'] = $this->account->find($id);
         if (!$data['data']) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Not Found');
         }
 
         // ===[Load View]===
-        return view('admin/product/edit', $data);
+        return view('admin/account/edit', $data);
     }
 
 
 
     public function delete($id){
         // ===[If Data Not Found]===
-        if (!$this->product->find($id)) {
+        if (!$this->account->find($id)) {
             $data['notif'] = [
                 'status'    =>'error', 
                 'title'     =>'Oops...', 
                 'message'   =>'Data not found!',
             ];
-            return redirect()->to('admin/product/table')->with('notif', $data['notif']);
+            return redirect()->to('admin/account/table')->with('notif', $data['notif']);
 
         // ===[Logic Delete]===
         } else {
-            $product = $this->product->find($id);
-            delete_file($this->uploaddir.$product['product_image']);
+            $account = $this->account->find($id);
+            delete_file($this->uploaddir.$account['account_image']);
 
-            $this->product->delete($id); // useSoftDeletes = false "Check The Model"
+            $this->account->delete($id); // useSoftDeletes = false "Check The Model"
 
             $data['notif'] = [
                 'status'    =>'success', 
                 'title'     =>'Success!', 
                 'message'   =>'Success delete data',
             ];
-            return redirect()->to('admin/product/table')->with('notif', $data['notif']);
+            return redirect()->to('admin/account/table')->with('notif', $data['notif']);
         }
     }
 }
