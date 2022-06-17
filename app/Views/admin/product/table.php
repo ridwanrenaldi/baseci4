@@ -46,11 +46,20 @@
                                         <td><?= $value['product_stock'] ?></td>
                                         <td><?= $value['product_capital'] ?></td>
                                         <td><?= $value['product_price'] ?></td>
-                                        <td><?= $value['product_image'] ?></td>
+                                        <td>
+                                            <?php
+                                                if (strpos($value['product_image'], 'default') || empty($value['product_image'])) {
+                                                    $url = base_url('images/product/default.png');
+                                                } else {
+                                                    $url = site_url('uploads/product/'.$value['product_image']);
+                                                }
+                                            ?>
+                                            <img src="<?= $url ?>" id="img-preview" alt="Preview Image" class="img-thumbnail" width="100">
+                                        </td>
                                         <td><?= $value['product_created'] ?></td>
                                         <td><?= $value['product_modified'] ?></td>
                                         <td>
-                                            <a href="<?php echo site_url('admin/product/edit/'.$value['product_id'])?>" data-toggle="tooltip" title="Edit">
+                                            <a href="<?= site_url('admin/product/edit/'.$value['product_id'])?>" data-toggle="tooltip" title="Edit">
                                                 <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                                             </a>
 

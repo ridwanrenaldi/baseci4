@@ -74,7 +74,7 @@
                                         <div class="col-sm-6">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <img src="<?php echo base_url('images/product.png')?>" id="img-preview" alt="Preview Image" class="img-thumbnail">
+                                                    <img src="<?= base_url('images/product/default.png')?>" id="img-preview" alt="Preview Image" class="img-thumbnail">
                                                 </div>
                                                 <div class="col-sm-9">
                                                     <div class="custom-file">

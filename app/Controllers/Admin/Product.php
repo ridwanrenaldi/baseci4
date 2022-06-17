@@ -75,25 +75,30 @@ class Product extends BaseController
             $rules = [
                 '_image_' => [
                     'label' => 'Image',
-                    'rules' => 'uploaded[_image_]|max_size[_image_,2048]|mime_in[_image_,image/png,image/jpg]|ext_in[_image_,png,jpg,gif]|is_image[_image_]'
+                    'rules' => 'max_size[_image_,2048]|mime_in[_image_,image/png,image/jpg,image/jpeg]|ext_in[_image_,png,jpg,gif,jpeg]|is_image[_image_]'
                 ],
             ];
 
+            // ===[Validate Image]===
             if (!$this->validate($rules)) {
                 $data['notif'] = [
                     'status'    =>'error', 
                     'title'     =>'Oops...', 
                     'message'   =>ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/product/add')->with('notif', $data['notif']);
+                return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
 
             } else {
+                // ===[Save Image]===
                 $image = $this->request->getFile('_image_');
-                $imgname = $image->getRandomName();
+                $imgname = NULL;
+
                 if ($image->isValid() && !$image->hasMoved()) {
-                    $image->move(WRITEPATH . 'uploads/product');
+                    $imgname = $image->getRandomName();
+                    $image->move(WRITEPATH . 'uploads/product', $imgname);
                 }
                 
+                // ===[Insert Data To Database]===
                 $insert = [
                     'category_id'           => $this->request->getPost('_category_'),
                     'product_code'          => strtoupper(bin2hex(random_bytes(3))),
@@ -105,9 +110,6 @@ class Product extends BaseController
                     'product_image'         => $imgname,
                 ];
     
-                // dd($insert);
-
-
                 if ($this->product->insert($insert) === false) {
                     $data['notif'] = [
                         'status'    =>'error', 
@@ -162,38 +164,69 @@ class Product extends BaseController
 
         // ===[Update Logic]===
         if ($this->request->getPost()) {
-            $update = [
-                'product_code'          => '',
-                'product_name'          => $this->request->getPost('_name_'),
-                'product_description'   => $this->request->getPost('_description_'),
-                'product_stock'         => $this->request->getPost('_stock_'),
-                'product_capital'       => $this->request->getPost('_capital_'),
-                'product_price'         => $this->request->getPost('_price_'),
-                'product_image'         => $this->request->getPost('_image_'),
+            $rules = [
+                '_image_' => [
+                    'label' => 'Image',
+                    'rules' => 'max_size[_image_,2048]|mime_in[_image_,image/png,image/jpg,image/jpeg]|ext_in[_image_,png,jpg,gif,jpeg]|is_image[_image_]'
+                ],
             ];
 
-            if ($this->product->update($id, $update) === false) {
+            // ===[Validate Image]===
+            if (!$this->validate($rules)) {
                 $data['notif'] = [
                     'status'    =>'error', 
                     'title'     =>'Oops...', 
-                    'message'   =>ListHtml($this->product->errors(), '<ul>', '</ul>')
+                    'message'   =>ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/product/edit/'.$id)->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
+
             } else {
-                $data['notif'] = [
-                    'status'    =>'success', 
-                    'title'     =>'Success!', 
-                    'message'   =>'Success update data', 
-                    'redirect'  =>site_url('admin/product/table')
+                
+                // ===[Insert Data To Database]===
+                $update = [
+                    'category_id'           => $this->request->getPost('_category_'),
+                    'product_name'          => $this->request->getPost('_name_'),
+                    'product_description'   => $this->request->getPost('_description_'),
+                    'product_stock'         => $this->request->getPost('_stock_'),
+                    'product_capital'       => $this->request->getPost('_capital_'),
+                    'product_price'         => $this->request->getPost('_price_'),
                 ];
-                return redirect()->to('admin/product/edit/'.$id)->with('notif', $data['notif']);
+                
+                // ===[Save Image If Uploaded]===
+                $image = $this->request->getFile('_image_');
+                if ($image->isValid() && !$image->hasMoved()) {
+                    $imgname = $image->getRandomName();
+                    $update['product_image'] = $imgname;
+                    $image->move(WRITEPATH . 'uploads/product', $imgname);
+                }
+
+    
+                if ($this->product->update($id, $update) === false) {
+                    $data['notif'] = [
+                        'status'    =>'error', 
+                        'title'     =>'Oops...', 
+                        'message'   =>ListHtml($this->product->errors(), '<ul>', '</ul>')
+                    ];
+                    return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
+                } else {
+                    
+
+                    $data['notif'] = [
+                        'status'    =>'success', 
+                        'title'     =>'Success!', 
+                        'message'   =>'Success insert data', 
+                        'redirect'  =>site_url('admin/product/table')
+                    ];
+                    return redirect()->to('admin/product/add')->with('notif', $data['notif']);
+                }
             }
         }
 
-        // ===[Fetch Data To Edit]===
+        // ===[Fetch Data]===
         $data['data'] = $this->product->find($id);
+        $data['category'] = $this->category->findAll();
         if (!$data['data']) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Tidak Ditemukan');
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Not Found');
         }
 
         // ===[Load View]===
@@ -214,6 +247,9 @@ class Product extends BaseController
 
         // ===[Logic Delete]===
         } else {
+            $product = $this->product->find($id);
+            delete_file(WRITEPATH . 'uploads/product/'.$product['product_image']);
+
             $this->product->delete($id); // useSoftDeletes = true "Check The Model"
 
             // Cleans out the database table by permanently removing all rows that have ‘deleted_at IS NOT NULL’.

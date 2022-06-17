@@ -147,7 +147,7 @@ class Category extends BaseController
         // ===[Fetch Data To Edit]===
         $data['data'] = $this->category->find($id);
         if (!$data['data']) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Tidak Ditemukan');
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Not Found');
         }
 
         // ===[Load View]===

@@ -40,7 +40,7 @@
                                         <td><?= $value['category_created'] ?></td>
                                         <td><?= $value['category_modified'] ?></td>
                                         <td>
-                                            <a href="<?php echo site_url('admin/category/edit/'.$value['category_id'])?>" data-toggle="tooltip" title="Edit">
+                                            <a href="<?= site_url('admin/category/edit/'.$value['category_id'])?>" data-toggle="tooltip" title="Edit">
                                                 <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                                             </a>
 
