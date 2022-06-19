@@ -35,8 +35,10 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'User\Home::index');
 $routes->get('/uploads/(:any)/(:any)', 'RenderFile::index/$1/$2');
+
+
 
 $routes->group('admin', static function($routes) {
 
@@ -45,6 +47,12 @@ $routes->group('admin', static function($routes) {
         $routes->get('category', 'Admin\Dashboard::category');
     });
 
+    $routes->group('account', static function($routes){
+        $routes->get('table', 'Admin\Account::index');
+        $routes->add('add', 'Admin\Account::add');
+        $routes->add('edit/(:num)', 'Admin\Account::edit/$1');
+        $routes->delete('delete/(:num)', 'Admin\Account::delete/$1');
+    });
 
     $routes->group('category', static function($routes){
         $routes->get('table', 'Admin\Category::index');

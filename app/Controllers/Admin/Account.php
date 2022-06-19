@@ -93,14 +93,14 @@ class Account extends BaseController
                 
                 // ===[Insert Data To Database]===
                 $insert = [
-                    'category_id'           => $this->request->getPost('_category_'),
-                    'account_code'          => strtoupper(bin2hex(random_bytes(3))),
-                    'account_name'          => $this->request->getPost('_name_'),
-                    'account_description'   => $this->request->getPost('_description_'),
-                    'account_stock'         => $this->request->getPost('_stock_'),
-                    'account_capital'       => $this->request->getPost('_capital_'),
-                    'account_price'         => $this->request->getPost('_price_'),
-                    'account_image'         => $imgname,
+                    'account_name'      => $this->request->getPost('_name_'),
+                    'account_username'  => $this->request->getPost('_username_'),
+                    'account_email'     => $this->request->getPost('_email_'),
+                    'account_password'  => $this->request->getPost('_password_'),
+                    'account_passconf'  => $this->request->getPost('_passconf_'),
+                    'account_level'     => $this->request->getPost('_level_'),
+                    'account_isactive'  => true,
+                    'account_image'     => $imgname,
                 ];
     
                 if ($this->account->insert($insert) === false) {

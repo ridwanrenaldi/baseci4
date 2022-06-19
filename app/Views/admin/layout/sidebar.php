@@ -49,6 +49,31 @@
                         </a>
                     </li>
 
+                    <li class="nav-item <?php echo $menu == 'adminaccount' ? 'menu-open': '' ?>">
+                        <a href="#" class="nav-link <?php echo $menu == 'adminaccount' ? 'active': '' ?>">
+                            <i class="nav-icon fas fa fa-user-circle"></i>
+                            <p>
+                                Account
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= site_url('admin/account/table') ?>" class="nav-link <?php echo $submenu == 'adminaccounttable' ? 'active': '' ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Table</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= site_url('admin/account/add') ?>" class="nav-link <?php echo $submenu == 'adminaccountadd' ? 'active': '' ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item <?php echo $menu == 'admincategory' ? 'menu-open': '' ?>">
                         <a href="#" class="nav-link <?php echo $menu == 'admincategory' ? 'active': '' ?>">
                             <i class="nav-icon fas fa-tags"></i>
