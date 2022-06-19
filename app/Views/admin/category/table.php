@@ -46,7 +46,7 @@
 
                                             <?= form_open('admin/category/delete/'.$value['category_id'], ['class'=>'d-inline']) ?>
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger btndelete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></button>
                                             <?= form_close() ?>
                                         </td>
                                     </tr>
@@ -84,6 +84,23 @@
             
         });
 
+        $('.btndelete').on('click', function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parents('form').submit();
+                }
+            });
+
+        });
     });
 </script>
 <?= $this->endSection() ?>
