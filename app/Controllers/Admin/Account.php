@@ -74,12 +74,12 @@ class Account extends BaseController
 
             // ===[Validate Image]===
             if (!$this->validate($this->account->imageRules)) {
-                $data['notif'] = [
-                    'status'    =>'error', 
-                    'title'     =>'Oops...', 
-                    'message'   =>ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
+                $notif = [
+                    'status'    => 'error', 
+                    'title'     => 'Oops...', 
+                    'message'   => ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/account/add')->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/account/add')->with('notif', $notif)->withInput();
 
             } else {
                 // ===[Save Image]===
@@ -94,32 +94,31 @@ class Account extends BaseController
                 // ===[Insert Data To Database]===
                 $insert = [
                     'account_name'      => $this->request->getPost('_name_'),
-                    'account_username'  => $this->request->getPost('_username_'),
-                    'account_email'     => $this->request->getPost('_email_'),
-                    'account_password'  => $this->request->getPost('_password_'),
-                    'account_passconf'  => $this->request->getPost('_passconf_'),
-                    'account_level'     => $this->request->getPost('_level_'),
+                    'account_username'  => strtolower($this->request->getPost('_username_')),
+                    'account_email'     => strtolower($this->request->getPost('_email_')),
+                    'account_password'  => strtolower($this->request->getPost('_password_')),
+                    'account_passconf'  => strtolower($this->request->getPost('_passconf_')),
+                    'account_role'      => $this->request->getPost('_level_'),
                     'account_isactive'  => true,
                     'account_image'     => $imgname,
                 ];
     
                 if ($this->account->insert($insert) === false) {
-                    $data['notif'] = [
-                        'status'    =>'error', 
-                        'title'     =>'Oops...', 
-                        'message'   =>ListHtml($this->account->errors(), '<ul>', '</ul>')
+                    $notif = [
+                        'status'    => 'error', 
+                        'title'     => 'Oops...', 
+                        'message'   => ListHtml($this->account->errors(), '<ul>', '</ul>')
                     ];
-                    return redirect()->to('admin/account/add')->with('notif', $data['notif'])->withInput();
-                } else {
-                    
+                    return redirect()->to('admin/account/add')->with('notif', $notif)->withInput();
 
-                    $data['notif'] = [
-                        'status'    =>'success', 
-                        'title'     =>'Success!', 
-                        'message'   =>'Success insert data', 
-                        'redirect'  =>site_url('admin/account/table')
+                } else {
+                    $notif = [
+                        'status'    => 'success', 
+                        'title'     => 'Success!', 
+                        'message'   => 'Success insert data', 
+                        'redirect'  => site_url('admin/account/table')
                     ];
-                    return redirect()->to('admin/account/add')->with('notif', $data['notif']);
+                    return redirect()->to('admin/account/add')->with('notif', $notif);
                 }
             }
         }
@@ -156,15 +155,14 @@ class Account extends BaseController
 
             // ===[Validate Image]===
             if (!$this->validate($this->account->imageRules)) {
-                $data['notif'] = [
-                    'status'    =>'error', 
-                    'title'     =>'Oops...', 
-                    'message'   =>ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
+                $notif = [
+                    'status'    => 'error', 
+                    'title'     => 'Oops...', 
+                    'message'   => ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/account/add')->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/account/add')->with('notif', $notif)->withInput();
 
             } else {
-                
                 // ===[Insert Data To Database]===
                 $update = [
                     'category_id'           => $this->request->getPost('_category_'),
@@ -188,22 +186,21 @@ class Account extends BaseController
 
     
                 if ($this->account->update($id, $update) === false) {
-                    $data['notif'] = [
-                        'status'    =>'error', 
-                        'title'     =>'Oops...', 
-                        'message'   =>ListHtml($this->account->errors(), '<ul>', '</ul>')
+                    $notif = [
+                        'status'    => 'error', 
+                        'title'     => 'Oops...', 
+                        'message'   => ListHtml($this->account->errors(), '<ul>', '</ul>')
                     ];
-                    return redirect()->to('admin/account/add')->with('notif', $data['notif'])->withInput();
-                } else {
+                    return redirect()->to('admin/account/add')->with('notif', $notif)->withInput();
                     
-
-                    $data['notif'] = [
-                        'status'    =>'success', 
-                        'title'     =>'Success!', 
-                        'message'   =>'Success insert data', 
-                        'redirect'  =>site_url('admin/account/table')
+                } else {
+                    $notif = [
+                        'status'    => 'success', 
+                        'title'     => 'Success!', 
+                        'message'   => 'Success insert data', 
+                        'redirect'  => site_url('admin/account/table')
                     ];
-                    return redirect()->to('admin/account/add')->with('notif', $data['notif']);
+                    return redirect()->to('admin/account/add')->with('notif', $notif);
                 }
             }
         }
@@ -211,7 +208,7 @@ class Account extends BaseController
         // ===[Fetch Data]===
         $data['data'] = $this->account->find($id);
         if (!$data['data']) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Not Found');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
         // ===[Load View]===
@@ -223,12 +220,12 @@ class Account extends BaseController
     public function delete($id){
         // ===[If Data Not Found]===
         if (!$this->account->find($id)) {
-            $data['notif'] = [
-                'status'    =>'error', 
-                'title'     =>'Oops...', 
-                'message'   =>'Data not found!',
+            $notif = [
+                'status'    => 'error', 
+                'title'     => 'Oops...', 
+                'message'   => 'Data not found!',
             ];
-            return redirect()->to('admin/account/table')->with('notif', $data['notif']);
+            return redirect()->to('admin/account/table')->with('notif', $notif);
 
         // ===[Logic Delete]===
         } else {
@@ -237,12 +234,12 @@ class Account extends BaseController
 
             $this->account->delete($id); // useSoftDeletes = false "Check The Model"
 
-            $data['notif'] = [
-                'status'    =>'success', 
-                'title'     =>'Success!', 
-                'message'   =>'Success delete data',
+            $notif = [
+                'status'    => 'success', 
+                'title'     => 'Success!', 
+                'message'   => 'Success delete data',
             ];
-            return redirect()->to('admin/account/table')->with('notif', $data['notif']);
+            return redirect()->to('admin/account/table')->with('notif', $notif);
         }
     }
 }

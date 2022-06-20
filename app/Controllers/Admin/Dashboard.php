@@ -10,9 +10,4 @@ class Dashboard extends BaseController
     {
         return view('admin/dashboard/index');
     }
-
-    public function category()
-    {
-        echo "Halaman category, halo ";
-    }
 }

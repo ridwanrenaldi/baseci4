@@ -75,12 +75,12 @@ class Product extends BaseController
 
             // ===[Validate Image]===
             if (!$this->validate($this->product->imageRules)) {
-                $data['notif'] = [
-                    'status'    =>'error', 
-                    'title'     =>'Oops...', 
-                    'message'   =>ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
+                $notif = [
+                    'status'    => 'error', 
+                    'title'     => 'Oops...', 
+                    'message'   => ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/product/add')->with('notif', $notif)->withInput();
 
             } else {
                 // ===[Save Image]===
@@ -105,22 +105,21 @@ class Product extends BaseController
                 ];
     
                 if ($this->product->insert($insert) === false) {
-                    $data['notif'] = [
-                        'status'    =>'error', 
-                        'title'     =>'Oops...', 
-                        'message'   =>ListHtml($this->product->errors(), '<ul>', '</ul>')
+                    $notif = [
+                        'status'    => 'error', 
+                        'title'     => 'Oops...', 
+                        'message'   => ListHtml($this->product->errors(), '<ul>', '</ul>')
                     ];
-                    return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
-                } else {
-                    
+                    return redirect()->to('admin/product/add')->with('notif', $notif)->withInput();
 
-                    $data['notif'] = [
-                        'status'    =>'success', 
-                        'title'     =>'Success!', 
-                        'message'   =>'Success insert data', 
+                } else {
+                    $notif = [
+                        'status'    => 'success', 
+                        'title'     => 'Success!', 
+                        'message'   => 'Success insert data', 
                         'redirect'  =>site_url('admin/product/table')
                     ];
-                    return redirect()->to('admin/product/add')->with('notif', $data['notif']);
+                    return redirect()->to('admin/product/add')->with('notif', $notif);
                 }
             }
         }
@@ -161,12 +160,12 @@ class Product extends BaseController
 
             // ===[Validate Image]===
             if (!$this->validate($this->product->imageRules)) {
-                $data['notif'] = [
-                    'status'    =>'error', 
-                    'title'     =>'Oops...', 
-                    'message'   =>ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
+                $notif = [
+                    'status'    => 'error', 
+                    'title'     => 'Oops...', 
+                    'message'   => ListHtml($this->validator->getErrors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/product/add')->with('notif', $notif)->withInput();
 
             } else {
                 
@@ -193,22 +192,21 @@ class Product extends BaseController
 
     
                 if ($this->product->update($id, $update) === false) {
-                    $data['notif'] = [
-                        'status'    =>'error', 
-                        'title'     =>'Oops...', 
-                        'message'   =>ListHtml($this->product->errors(), '<ul>', '</ul>')
+                    $notif = [
+                        'status'    => 'error', 
+                        'title'     => 'Oops...', 
+                        'message'   => ListHtml($this->product->errors(), '<ul>', '</ul>')
                     ];
-                    return redirect()->to('admin/product/add')->with('notif', $data['notif'])->withInput();
-                } else {
-                    
+                    return redirect()->to('admin/product/add')->with('notif', $notif)->withInput();
 
-                    $data['notif'] = [
-                        'status'    =>'success', 
-                        'title'     =>'Success!', 
-                        'message'   =>'Success insert data', 
-                        'redirect'  =>site_url('admin/product/table')
+                } else {
+                    $notif = [
+                        'status'    => 'success', 
+                        'title'     => 'Success!', 
+                        'message'   => 'Success insert data', 
+                        'redirect'  => site_url('admin/product/table')
                     ];
-                    return redirect()->to('admin/product/add')->with('notif', $data['notif']);
+                    return redirect()->to('admin/product/add')->with('notif', $notif);
                 }
             }
         }
@@ -217,7 +215,7 @@ class Product extends BaseController
         $data['data'] = $this->product->find($id);
         $data['category'] = $this->category->findAll();
         if (!$data['data']) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Not Found');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
         // ===[Load View]===
@@ -229,12 +227,12 @@ class Product extends BaseController
     public function delete($id){
         // ===[If Data Not Found]===
         if (!$this->product->find($id)) {
-            $data['notif'] = [
-                'status'    =>'error', 
-                'title'     =>'Oops...', 
-                'message'   =>'Data not found!',
+            $notif = [
+                'status'    => 'error', 
+                'title'     => 'Oops...', 
+                'message'   => 'Data not found!',
             ];
-            return redirect()->to('admin/product/table')->with('notif', $data['notif']);
+            return redirect()->to('admin/product/table')->with('notif', $notif);
 
         // ===[Logic Delete]===
         } else {
@@ -243,12 +241,12 @@ class Product extends BaseController
 
             $this->product->delete($id); // useSoftDeletes = false "Check The Model"
 
-            $data['notif'] = [
-                'status'    =>'success', 
-                'title'     =>'Success!', 
-                'message'   =>'Success delete data',
+            $notif = [
+                'status'    => 'success', 
+                'title'     => 'Success!', 
+                'message'   => 'Success delete data',
             ];
-            return redirect()->to('admin/product/table')->with('notif', $data['notif']);
+            return redirect()->to('admin/product/table')->with('notif', $notif);
         }
     }
 }

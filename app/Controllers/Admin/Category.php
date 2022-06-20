@@ -75,20 +75,21 @@ class Category extends BaseController
             ];
 
             if ($this->category->insert($insert) === false) {
-                $data['notif'] = [
-                    'status'    =>'error', 
-                    'title'     =>'Oops...', 
-                    'message'   =>ListHtml($this->category->errors(), '<ul>', '</ul>')
+                $notif = [
+                    'status'    => 'error', 
+                    'title'     => 'Oops...', 
+                    'message'   => ListHtml($this->category->errors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/category/add')->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/category/add')->with('notif', $notif)->withInput();
+
             } else {
-                $data['notif'] = [
-                    'status'    =>'success', 
-                    'title'     =>'Success!', 
-                    'message'   =>'Success insert data', 
-                    'redirect'  =>site_url('admin/category/table')
+                $notif = [
+                    'status'    => 'success', 
+                    'title'     => 'Success!', 
+                    'message'   => 'Success insert data', 
+                    'redirect'  => site_url('admin/category/table')
                 ];
-                return redirect()->to('admin/category/add')->with('notif', $data['notif']);
+                return redirect()->to('admin/category/add')->with('notif', $notif);
             }
         }
 
@@ -127,27 +128,28 @@ class Category extends BaseController
             ];
 
             if ($this->category->update($id, $update) === false) {
-                $data['notif'] = [
-                    'status'    =>'error', 
-                    'title'     =>'Oops...', 
-                    'message'   =>ListHtml($this->category->errors(), '<ul>', '</ul>')
+                $notif = [
+                    'status'    => 'error', 
+                    'title'     => 'Oops...', 
+                    'message'   => ListHtml($this->category->errors(), '<ul>', '</ul>')
                 ];
-                return redirect()->to('admin/category/edit/'.$id)->with('notif', $data['notif'])->withInput();
+                return redirect()->to('admin/category/edit/'.$id)->with('notif', $notif)->withInput();
+
             } else {
-                $data['notif'] = [
-                    'status'    =>'success', 
-                    'title'     =>'Success!', 
-                    'message'   =>'Success update data', 
-                    'redirect'  =>site_url('admin/category/table')
+                $notif = [
+                    'status'    => 'success', 
+                    'title'     => 'Success!', 
+                    'message'   => 'Success update data', 
+                    'redirect'  => site_url('admin/category/table')
                 ];
-                return redirect()->to('admin/category/edit/'.$id)->with('notif', $data['notif']);
+                return redirect()->to('admin/category/edit/'.$id)->with('notif', $notif);
             }
         }
 
         // ===[Fetch Data To Edit]===
         $data['data'] = $this->category->find($id);
         if (!$data['data']) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('ID : '.$id.' Not Found');
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
         // ===[Load View]===
@@ -159,23 +161,23 @@ class Category extends BaseController
     public function delete($id){
         // ===[If Data Not Found]===
         if (!$this->category->find($id)) {
-            $data['notif'] = [
-                'status'    =>'error', 
-                'title'     =>'Oops...', 
-                'message'   =>'Data not found!',
+            $notif = [
+                'status'    => 'error', 
+                'title'     => 'Oops...', 
+                'message'   => 'Data not found!',
             ];
-            return redirect()->to('admin/category/table')->with('notif', $data['notif']);
+            return redirect()->to('admin/category/table')->with('notif', $notif);
 
         // ===[Logic Delete]===
         } else {
             $this->category->delete($id); // useSoftDeletes = false "Check The Model"
 
-            $data['notif'] = [
-                'status'    =>'success', 
-                'title'     =>'Success!', 
-                'message'   =>'Success delete data',
+            $notif = [
+                'status'    => 'success', 
+                'title'     => 'Success!', 
+                'message'   => 'Success delete data',
             ];
-            return redirect()->to('admin/category/table')->with('notif', $data['notif']);
+            return redirect()->to('admin/category/table')->with('notif', $notif);
         }
     }
 }

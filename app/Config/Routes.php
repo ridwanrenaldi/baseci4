@@ -39,12 +39,18 @@ $routes->get('/', 'User\Home::index');
 $routes->get('/uploads/(:any)/(:any)', 'RenderFile::index/$1/$2');
 
 
+$routes->group('auth', static function($routes) {
+    $routes->add('login', 'Auth::login', ['filter' => 'isnotloggedin']);
+    $routes->add('register', 'Auth::register', ['filter' => 'isnotloggedin']);
+    $routes->add('forgot', 'Auth::forgot', ['filter' => 'isnotloggedin']);
+    $routes->add('logout', 'Auth::logout');
+});
 
-$routes->group('admin', static function($routes) {
+
+$routes->group('admin', ['filter' => 'isloggedin'], static function($routes) {
 
     $routes->group('dashboard', static function($routes){
         $routes->get('', 'Admin\Dashboard::index');
-        $routes->get('category', 'Admin\Dashboard::category');
     });
 
     $routes->group('account', static function($routes){

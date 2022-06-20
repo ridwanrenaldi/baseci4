@@ -42,7 +42,7 @@
                                         <td><?= $value['account_name'] ?></td>
                                         <td><?= $value['account_username'] ?></td>
                                         <td><?= $value['account_email'] ?></td>
-                                        <td><?= $value['account_level'] ?></td>
+                                        <td><?= $value['account_role'] ?></td>
                                         <td><?= $value['account_isactive'] ?></td>
                                         <td>
                                             <?php
