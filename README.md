@@ -1,11 +1,22 @@
 # CodeIgniter 4 Application Starter
 
 ## Baseci4
+Basic4 is an example project using the codeigniter 4 framework and the adminlte template
+
 - Example project
 - Best way to use codeigniter 4
 - Modular
 - Clean Code
 - Good architecture
+- Readable
+
+## How to install
+1. Create database baseci4 and import baseci4.sql
+2. Composer install
+3. Setting your .env file
+
+
+
 
 ## What is CodeIgniter?
 
