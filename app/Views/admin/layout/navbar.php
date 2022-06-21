@@ -82,7 +82,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
-                    <li class="user-header bg-primary">
+                    <li class="user-header bg-info">
                         <img src="<?= session()->imageurl ?>" class="img-circle elevation-2" alt="User Image">
 
                         <p>
@@ -90,24 +90,10 @@
                             <small>Member since <?= session()->created ?></small>
                         </p>
                     </li>
-                    <!-- Menu Body -->
-                    <li class="user-body">
-                        <div class="row">
-                            <div class="col-4 text-center">
-                                <a href="#">Followers</a>
-                            </div>
-                            <div class="col-4 text-center">
-                                <a href="#">Sales</a>
-                            </div>
-                            <div class="col-4 text-center">
-                                <a href="#">Friends</a>
-                            </div>
-                        </div>
-                        <!-- /.row -->
-                    </li>
+
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                        <a href="<?= site_url('admin/profile/info') ?>" class="btn btn-default btn-flat">Profile</a>
                         <a href="<?= site_url('auth/logout') ?>" class="btn btn-default btn-flat float-right">Sign out</a>
                     </li>
                 </ul>

@@ -203,7 +203,7 @@ class Product extends BaseController
                     $notif = [
                         'status'    => 'success', 
                         'title'     => 'Success!', 
-                        'message'   => 'Success insert data', 
+                        'message'   => 'Success update data', 
                         'redirect'  => site_url('admin/product/table')
                     ];
                     return redirect()->to('admin/product/add')->with('notif', $notif);

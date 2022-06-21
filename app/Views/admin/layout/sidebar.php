@@ -43,7 +43,7 @@
                     <li class="nav-header">MAIN MENU</li>
 
                     <li class="nav-item">
-                        <a href="<?= site_url('admin/dashboard') ?>" class="nav-link">
+                        <a href="<?= site_url('admin/dashboard') ?>" class="nav-link <?php echo $menu == 'admindashboard' ? 'active': '' ?>">
                             <i class="nav-icon fas fa-th"></i>
                             <p>Dashboard</p>
                         </a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 19, 2022 at 01:33 AM
+-- Generation Time: Jun 21, 2022 at 02:07 AM
 -- Server version: 5.7.31
 -- PHP Version: 7.4.9
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `account_username` varchar(12) DEFAULT NULL,
   `account_email` varchar(50) DEFAULT NULL,
   `account_password` varchar(250) DEFAULT NULL,
-  `account_level` enum('root','admin','user') DEFAULT NULL,
+  `account_role` enum('root','admin','user') DEFAULT NULL,
   `account_isactive` tinyint(1) DEFAULT NULL,
   `account_image` varchar(250) DEFAULT NULL,
   `account_created` datetime DEFAULT NULL,

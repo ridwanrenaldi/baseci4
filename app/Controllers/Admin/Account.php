@@ -98,7 +98,7 @@ class Account extends BaseController
                     'account_email'     => strtolower($this->request->getPost('_email_')),
                     'account_password'  => strtolower($this->request->getPost('_password_')),
                     'account_passconf'  => strtolower($this->request->getPost('_passconf_')),
-                    'account_role'      => $this->request->getPost('_level_'),
+                    'account_role'      => $this->request->getPost('_role_'),
                     'account_isactive'  => true,
                     'account_image'     => $imgname,
                 ];
@@ -165,13 +165,20 @@ class Account extends BaseController
             } else {
                 // ===[Insert Data To Database]===
                 $update = [
-                    'category_id'           => $this->request->getPost('_category_'),
-                    'account_name'          => $this->request->getPost('_name_'),
-                    'account_description'   => $this->request->getPost('_description_'),
-                    'account_stock'         => $this->request->getPost('_stock_'),
-                    'account_capital'       => $this->request->getPost('_capital_'),
-                    'account_price'         => $this->request->getPost('_price_'),
+                    'id'                => $id,
+                    'account_name'      => $this->request->getPost('_name_'),
+                    'account_username'  => strtolower($this->request->getPost('_username_')),
+                    'account_email'     => strtolower($this->request->getPost('_email_')),
+                    'account_role'      => $this->request->getPost('_role_'),
+                    'account_isactive'  => true,
                 ];
+
+                $password = strtolower($this->request->getPost('_password_'));
+                $passconf = strtolower($this->request->getPost('_passconf_'));
+                if (!empty($password) && !empty($passconf)) {
+                    $update['account_password'] = $password;
+                    $update['account_passconf'] = $passconf;
+                }
                 
                 // ===[Save Image If Uploaded]===
                 $image = $this->request->getFile('_image_');
@@ -197,7 +204,7 @@ class Account extends BaseController
                     $notif = [
                         'status'    => 'success', 
                         'title'     => 'Success!', 
-                        'message'   => 'Success insert data', 
+                        'message'   => 'Success update data', 
                         'redirect'  => site_url('admin/account/table')
                     ];
                     return redirect()->to('admin/account/add')->with('notif', $notif);

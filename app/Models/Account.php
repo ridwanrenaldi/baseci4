@@ -14,7 +14,7 @@ class Account extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['account_name', 'account_username', 'account_email', 'account_password', 'account_level', 'account_isactive', 'account_image'];
+    protected $allowedFields    = ['account_name', 'account_username', 'account_email', 'account_password', 'account_role', 'account_isactive', 'account_image'];
 
     // Dates
     protected $useTimestamps = true;
@@ -32,12 +32,12 @@ class Account extends Model
 
         'account_username' => [
             'label' => 'Username',
-            'rules' => 'required|alpha_numeric|min_length[4]|max_length[12]|is_unique[account.account_username,account_username,{id}]',
+            'rules' => 'required|alpha_numeric|min_length[4]|max_length[12]|is_unique[account.account_username,account.account_id,{id}]',
         ],
 
         'account_email' => [
             'label' => 'Email',
-            'rules' => 'required|valid_email|max_length[50]|is_unique[account.account_email,account_email,{id}]'
+            'rules' => 'required|valid_email|max_length[50]|is_unique[account.account_email,account.account_id,{id}]'
         ],
 
         'account_password' => [
@@ -50,8 +50,8 @@ class Account extends Model
             'rules' => 'required|matches[account_password]'
         ],
 
-        'account_level' => [
-            'label' => 'Level',
+        'account_role' => [
+            'label' => 'Role',
             'rules' => 'required|alpha|in_list[root,admin,user]'
         ],
 

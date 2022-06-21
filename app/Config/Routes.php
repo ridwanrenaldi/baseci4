@@ -60,6 +60,11 @@ $routes->group('admin', ['filter' => 'isloggedin'], static function($routes) {
         $routes->delete('delete/(:num)', 'Admin\Account::delete/$1');
     });
 
+    $routes->group('profile', static function($routes){
+        $routes->get('info', 'Admin\Profile::index');
+        $routes->add('edit', 'Admin\Profile::edit');
+    });
+
     $routes->group('category', static function($routes){
         $routes->get('table', 'Admin\Category::index');
         $routes->add('add', 'Admin\Category::add');

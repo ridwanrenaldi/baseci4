@@ -20,52 +20,53 @@
                             <!-- /.card-header -->
                             
                             <!-- form start -->
-                            <?= form_open_multipart('admin/account/add', ['class'=>'form-horizontal']) ?>
+                            <?= form_open_multipart('admin/profile/edit', ['class'=>'form-horizontal']) ?>
                                 <div class="card-body">
 
                                     <div class="form-group row">
                                         <label for="_name_" class="col-sm-3 col-form-label text-right">Name</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="_name_" class="form-control" id="_name_" placeholder="Name" value="<?= old('_name_') ?>">
+                                            <input type="text" name="_name_" class="form-control" id="_name_" placeholder="Name" value="<?= old('_name_') ? old('_name_') : $data['account_name'] ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="_username_" class="col-sm-3 col-form-label text-right">Username</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="_username_" class="form-control" id="_username_" placeholder="Username" value="<?= old('_username_') ?>">
+                                            <input type="text" name="_username_" class="form-control" id="_username_" placeholder="Username" value="<?= old('_username_') ? old('_username_') : $data['account_username'] ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="_email_" class="col-sm-3 col-form-label text-right">Email</label>
                                         <div class="col-sm-6">
-                                            <input type="email" name="_email_" class="form-control" id="_email_" placeholder="Email" value="<?= old('_email_') ?>">
+                                            <input type="email" name="_email_" class="form-control" id="_email_" placeholder="Email" value="<?= old('_email_') ? old('_email_') : $data['account_email'] ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="_password_" class="col-sm-3 col-form-label text-right">Password</label>
                                         <div class="col-sm-6">
-                                            <input type="password" name="_password_" class="form-control" id="_password_" placeholder="Password" value="<?= old('_password_') ?>">
+
+                                            <div class="input-group">
+                                                <input type="password" name="_password_" class="form-control" id="_password_" placeholder="Password" value="<?= old('_password_') ?>" disabled >
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input class="custom-control-input" type="checkbox" id="_checkpassword_">
+                                                            <label for="_checkpassword_" class="custom-control-label"></label>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="_passconf_" class="col-sm-3 col-form-label text-right">Confirm Password</label>
                                         <div class="col-sm-6">
-                                            <input type="password" name="_passconf_" class="form-control" id="_passconf_" placeholder="Confirm Password" value="<?= old('_passconf_') ?>">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="_role_" class="col-sm-3 col-form-label text-right">Role</label>
-                                        <div class="col-sm-6">
-                                            <select name="_role_" class="form-control select2bs4">
-                                                <option value="root" <?= old('_role_')=='root' ? 'selected' : ''?>>Root</option>
-                                                <option value="admin" <?= old('_role_')=='admin' ? 'selected' : ''?>>Admin</option>
-                                                <option value="user" <?= old('_role_')=='user' ? 'selected' : ''?>>User</option>
-                                            </select>
+                                            <input type="password" name="_passconf_" class="form-control" id="_passconf_" placeholder="Confirm Password" value="<?= old('_passconf_') ?>" disabled >
                                         </div>
                                     </div>
 
@@ -74,7 +75,14 @@
                                         <div class="col-sm-6">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <img src="<?= base_url('images/account/default.png')?>" id="img-preview" alt="Preview Image" class="img-thumbnail">
+                                                    <?php
+                                                        if (strpos($data['account_image'], 'default') || empty($data['account_image'])) {
+                                                            $url = base_url('images/account/default.png');
+                                                        } else {
+                                                            $url = site_url('uploads/account/'.$data['account_image']);
+                                                        }
+                                                    ?>
+                                                    <img src="<?= $url ?>" id="img-preview" alt="Preview Image" class="img-thumbnail">
                                                 </div>
                                                 <div class="col-sm-9">
                                                     <div class="custom-file">
@@ -119,7 +127,16 @@
                 $('#_filename_').text($(this).get(0).files[0].name);
                 $('#img-preview')[0].src = (window.URL ? URL : webkitURL).createObjectURL($(this).get(0).files[0]);
             });
+
+            $('#_checkpassword_').on('change', function(){
+                if ($(this).is(':checked')) {
+                    $('#_password_').prop('disabled', false );
+                    $('#_passconf_').prop('disabled', false );
+                } else {
+                    $('#_password_').prop('disabled', true );
+                    $('#_passconf_').prop('disabled', true );
+                }
+            });
         });
     </script>
 <?= $this->endSection() ?>
-
