@@ -1,5 +1,7 @@
 # CodeIgniter 4 Application Starter
 
+If there are bugs or errors or you want to request a new feature, please [Contact Me](https://www.instagram.com/rid1bdbx/)
+
 ## Baseci4
 Basic4 is an example project using the codeigniter 4 framework and the adminlte template
 
@@ -14,6 +16,7 @@ Basic4 is an example project using the codeigniter 4 framework and the adminlte 
 1. Create database baseci4 and import baseci4.sql
 2. Composer install
 3. Setting your .env file
+4. Php spark serve
 
 
 
