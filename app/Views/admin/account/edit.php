@@ -74,6 +74,7 @@
                                         <label for="_role_" class="col-sm-3 col-form-label text-right">Role</label>
                                         <div class="col-sm-6">
                                             <select name="_role_" class="form-control select2bs4">
+                                                <option selected hidden disabled>- Choose Role -</option>
                                                 <option value="root" <?php if(set_select('_role_', 'root') != null) {echo set_select('_role_', 'root');}elseif($data['account_role'] == 'root') {echo 'selected';}?> >Root</option>
                                                 <option value="admin" <?php if(set_select('_role_', 'admin') != null) {echo set_select('_role_', 'root');}elseif($data['account_role'] == 'admin') {echo 'selected';}?>>Admin</option>
                                                 <option value="user" <?php if(set_select('_role_', 'user') != null) {echo set_select('_role_', 'root');}elseif($data['account_role'] == 'user') {echo 'selected';}?> >User</option>

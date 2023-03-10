@@ -62,6 +62,7 @@
                                         <label for="_role_" class="col-sm-3 col-form-label text-right">Role</label>
                                         <div class="col-sm-6">
                                             <select name="_role_" class="form-control select2bs4">
+                                                <option selected hidden disabled>- Choose Role -</option>
                                                 <option value="root" <?= old('_role_')=='root' ? 'selected' : ''?>>Root</option>
                                                 <option value="admin" <?= old('_role_')=='admin' ? 'selected' : ''?>>Admin</option>
                                                 <option value="user" <?= old('_role_')=='user' ? 'selected' : ''?>>User</option>
