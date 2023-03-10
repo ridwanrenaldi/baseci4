@@ -17,7 +17,7 @@ class Profile extends BaseController
     {
         $user = $this->account->find($id);
 
-        if (strpos($user['account_image'], 'default') || empty($user['account_image'])) {
+        if (empty($user['account_image']) || strpos($user['account_image'], 'default')) {
             $imgurl = base_url('images/account/default.png');
         } else {
             $imgurl = site_url('uploads/account/'.$user['account_image']);

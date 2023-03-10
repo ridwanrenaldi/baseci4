@@ -46,7 +46,7 @@
                                         <td><?= $value['account_isactive'] ?></td>
                                         <td>
                                             <?php
-                                                if (strpos($value['account_image'], 'default') || empty($value['account_image'])) {
+                                                if (empty($value['account_image']) || strpos($value['account_image'], 'default')) {
                                                     $url = base_url('images/account/default.png');
                                                 } else {
                                                     $url = site_url('uploads/account/'.$value['account_image']);

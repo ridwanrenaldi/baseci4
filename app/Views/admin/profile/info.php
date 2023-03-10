@@ -20,7 +20,7 @@
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     <?php
-                                        if (strpos($data['account_image'], 'default') || empty($data['account_image'])) {
+                                        if (empty($data['account_image']) || strpos($data['account_image'], 'default')) {
                                             $url = base_url('images/account/default.png');
                                         } else {
                                             $url = site_url('uploads/account/'.$data['account_image']);

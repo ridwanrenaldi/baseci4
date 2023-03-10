@@ -27,7 +27,7 @@ class Auth extends BaseController
                 if ($user['account_isactive']) {
                     if (password_verify($password, $user['account_password'])) {
 
-                        if (strpos($user['account_image'], 'default') || empty($user['account_image'])) {
+                        if (empty($user['account_image']) || strpos($user['account_image'], 'default')) {
                             $imgurl = base_url('images/account/default.png');
                         } else {
                             $imgurl = site_url('uploads/account/'.$user['account_image']);
