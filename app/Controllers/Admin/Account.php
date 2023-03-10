@@ -173,11 +173,11 @@ class Account extends BaseController
                     'account_isactive'  => true,
                 ];
 
-                $password = strtolower($this->request->getPost('_password_'));
-                $passconf = strtolower($this->request->getPost('_passconf_'));
+                $password = $this->request->getPost('_password_');
+                $passconf = $this->request->getPost('_passconf_');
                 if (!empty($password) && !empty($passconf)) {
-                    $update['account_password'] = $password;
-                    $update['account_passconf'] = $passconf;
+                    $update['account_password'] = strtolower($password);
+                    $update['account_passconf'] = strtolower($passconf);
                 }
                 
                 // ===[Save Image If Uploaded]===
@@ -198,7 +198,7 @@ class Account extends BaseController
                         'title'     => 'Oops...', 
                         'message'   => ListHtml($this->account->errors(), '<ul>', '</ul>')
                     ];
-                    return redirect()->to('admin/account/add')->with('notif', $notif)->withInput();
+                    return redirect()->to('admin/account/edit/'.$id)->with('notif', $notif)->withInput();
                     
                 } else {
                     $notif = [
@@ -207,7 +207,7 @@ class Account extends BaseController
                         'message'   => 'Success update data', 
                         'redirect'  => site_url('admin/account/table')
                     ];
-                    return redirect()->to('admin/account/add')->with('notif', $notif);
+                    return redirect()->to('admin/account/edit/'.$id)->with('notif', $notif);
                 }
             }
         }
