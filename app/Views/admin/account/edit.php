@@ -47,14 +47,26 @@
                                     <div class="form-group row">
                                         <label for="_password_" class="col-sm-3 col-form-label text-right">Password</label>
                                         <div class="col-sm-6">
-                                            <input type="password" name="_password_" class="form-control" id="_password_" placeholder="Password" value="<?= old('_password_') ?>">
+
+                                            <div class="input-group">
+                                                <input type="password" name="_password_" class="form-control" id="_password_" placeholder="Password" value="<?= old('_password_') ?>" disabled >
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input class="custom-control-input" type="checkbox" id="_checkpassword_">
+                                                            <label for="_checkpassword_" class="custom-control-label"></label>
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="_passconf_" class="col-sm-3 col-form-label text-right">Confirm Password</label>
                                         <div class="col-sm-6">
-                                            <input type="password" name="_passconf_" class="form-control" id="_passconf_" placeholder="Confirm Password" value="<?= old('_passconf_') ?>">
+                                            <input type="password" name="_passconf_" class="form-control" id="_passconf_" placeholder="Confirm Password" value="<?= old('_passconf_') ?>" disabled >
                                         </div>
                                     </div>
 
@@ -75,7 +87,7 @@
                                             <div class="row">
                                                 <div class="col-sm-3">
                                                     <?php
-                                                        if (strpos($data['account_image'], 'default') || empty($data['account_image'])) {
+                                                        if (empty($data['account_image']) || strpos($data['account_image'], 'default')) {
                                                             $url = base_url('images/account/default.png');
                                                         } else {
                                                             $url = site_url('uploads/account/'.$data['account_image']);
@@ -125,6 +137,16 @@
             $('#_image_').on('change', function() {
                 $('#_filename_').text($(this).get(0).files[0].name);
                 $('#img-preview')[0].src = (window.URL ? URL : webkitURL).createObjectURL($(this).get(0).files[0]);
+            });
+
+            $('#_checkpassword_').on('change', function(){
+                if ($(this).is(':checked')) {
+                    $('#_password_').prop('disabled', false );
+                    $('#_passconf_').prop('disabled', false );
+                } else {
+                    $('#_password_').prop('disabled', true );
+                    $('#_passconf_').prop('disabled', true );
+                }
             });
         });
     </script>
