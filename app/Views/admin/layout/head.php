@@ -44,7 +44,7 @@
     
     <?php if(isset($summernote) && $summernote) { ?>
         <!-- summernote -->
-        <link rel="stylesheet" href=""<?= base_url('template/plugins/summernote/summernote-bs4.min.css') ?>">
+        <link rel="stylesheet" href="<?= base_url('template/plugins/summernote/summernote-bs4.min.css') ?>">
     <?php } ?>
 
 
