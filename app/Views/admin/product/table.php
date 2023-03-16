@@ -48,7 +48,7 @@
                                         <td><?= $value['product_price'] ?></td>
                                         <td>
                                             <?php
-                                                if ( empty($value['article_image']) || strpos($value['article_image'], 'default')) {
+                                                if (empty($data['product_image']) || strpos($data['product_image'], 'default')) {
                                                     $url = base_url('images/product/default.png');
                                                 } else {
                                                     $url = site_url('uploads/product/'.$value['product_image']);

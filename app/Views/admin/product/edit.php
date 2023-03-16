@@ -75,7 +75,7 @@
                                             <div class="row">
                                                 <div class="col-sm-3">
                                                     <?php
-                                                        if (strpos($data['product_image'], 'default') || empty($data['product_image'])) {
+                                                        if (empty($data['product_image']) || strpos($data['product_image'], 'default')) {
                                                             $url = base_url('images/product/default.png');
                                                         } else {
                                                             $url = site_url('uploads/product/'.$data['product_image']);
