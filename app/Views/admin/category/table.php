@@ -76,12 +76,15 @@
     $(document).ready(function(){
         $(function () {
             $("#example1").DataTable({
+                responsive: true,
                 buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 dom: "<'row'<'col-sm-12 col-md-3'l><'col-sm-12 col-md-6'B><'col-sm-12 col-md-3'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                columnDefs: [
+                    { className: "align-middle", "targets": '_all' }
+                ]
             });
-            
         });
 
         $('.btndelete').on('click', function(e){

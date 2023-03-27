@@ -1,84 +1,177 @@
-# CodeIgniter 4 Application Starter
+<div align="center">
+  <h1 align="center">
+    <br>
+    <a href="https://adminlte.io/" title="AdminLTE">
+      <img src="public/template/dist/img/AdminLTELogo.png" alt="AdminLTE" width="200">
+    </a>
+    <a title="Plus">
+      <img src="public/images/plussign.png" alt="Plus" width="200">
+    </a>
+    <a href="https://www.codeigniter.com/" title="Codeigniter">
+      <img src="public/images/codeigniter.svg" alt="Codeigniter" width="165">
+    </a>
+    <br>
+    Base Codeigniter 4
+    <br>
+  </h1>
+</div>
 
+
+<div align="center">
+  <h4 align="center">"Designed to start a new project"</h4>
+</div>
+
+
+<div align="center">
+  <p align="center">
+    <a href="https://forthebadge.com">
+      <img src="https://forthebadge.com/images/badges/powered-by-coffee.svg">
+    </a>
+    <a href="https://forthebadge.com">
+      <img src="https://forthebadge.com/images/badges/built-with-love.svg">
+    </a>
+  </p>
+</div>
+
+
+
+<div align="center">
+  <p align="center">
+    <a href="https://www.php.net/" title="PHP">
+      <img src="https://img.shields.io/badge/PHP-8.1.6-green.svg" alt="php">
+    </a>
+    <a href="https://adminlte.io/" title="Admin LTE">
+      <img src="https://img.shields.io/badge/Admin LTE-3.2.0-1abc9c.svg" alt="Admin LTE">
+    </a>
+    <a href="https://www.codeigniter.com/" title="Codeigniter">
+      <img src="https://img.shields.io/badge/Codeigniter-v4.2.1-blue.svg" alt="codeigniter">
+    </a>
+    <a href="https://www.apachefriends.org/download.html" title="XAMPP">
+      <img src="https://img.shields.io/badge/XAMPP-8.1.6-red.svg" alt="xampp">
+    </a>
+  </p>
+</div>
+
+
+<div align="center">
+  <p align="center">
+    <a href="#demo">View Demo</a> •
+    <a href="#report">Report Bug</a> •
+    <a href="#request">Request Feature</a> •
+    <a href="#license">License</a>
+  </p>
+</div>
+
+
+
+## Base Codeigniter 4
+Template Multi Level Login
+<br>
 If there are bugs or errors or you want to request a new feature, please [Contact Me](https://www.instagram.com/rid1bdbx/)
 
-## Baseci4
+
+
+## Features
 Basic4 is an example project using the codeigniter 4 framework and the adminlte template
+A few of the things you can do with Project Base CI4:
 
-- Example project
-- Best way to use codeigniter 4
-- Modular
-- Clean Code
-- Good architecture
-- Readable
-
-## How to install
-1. Create database baseci4 and import baseci4.sql
-2. Composer install
-3. Setting your .env file
-4. Php spark serve
+* Clean code
+* Desain pattern
+* Modular
+* Reuseable
+* Easily Maintainable Codes
+* Example project
+* Best way to use codeigniter 4
+* Good architecture
+* Readable
 
 
+## Stack
+
+| Name | Description |
+| --- | --- |
+| Language | PHP |
+| Framework | Codeigniter |
+| Template | AdminLTE |
+| Database | Mysql |
 
 
-## What is CodeIgniter?
+## Sources
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+BaseCodeigniter currently uses 2 sources to build the app's. We're continuously adding
+sources, but the app's open-source nature also allows you to add your own when
+desired. This can be done in
+[Base Codeigniter](https://github.com/ridwanrenaldi/baseci4).
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+###### Standard sources:
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+* [AdminLTE](https://github.com/ColorlibHQ/AdminLTE)
+* [SweetAlert2](https://github.com/sweetalert2/sweetalert2)
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
 
-## Installation & updates
+## Getting Started
+### Install Requirements
+1. Install [Xampp 8.1.6 +](https://www.apachefriends.org/download.html)
+2. Install [Composer](https://getcomposer.org/)
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
 
-## Setup
+### How to Install Project
+To clone and run this application, you'll need [Git](https://git-scm.com) and [xampp 8.1.6 +](https://www.apachefriends.org/download.html) (which comes with [mysql](https://www.mysql.com/)) installed on your computer. From your command line:
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+1. Open the root project folder
 
-## Important Change with index.php
+```bash
+$ git clone https://github.com/ridwanrenaldi/baseci4.git
+$ cd baseci4
+```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+2. Open xampp
+3. Start apache
+4. Start MySQL
+5. Create database baseci4 and import baseci4.sql
+6. Composer install
+7. Setting your .env file
+8. Php spark serve
+9. Open URL : localhost:8080
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
 
-**Please** read the user guide for a better explanation of how CI4 works!
+## Account
+1. Super User :
+  * Username : root
+  * Password : root
 
-## Repository Management
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## License
 
-## Server Requirements
+[![Maintenance](https://img.shields.io/badge/LICENSE-MIT-blue.svg)](LICENSE)
 
-PHP version 7.4 or higher is required, with the following extensions installed:
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+## Contributors ✨
 
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+Thanks goes to these wonderful people
+([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/ridwanrenaldi">
+        <img src="https://avatars.githubusercontent.com/u/31766893?v=4" width="100px;" alt="Ridwan Renaldi"/>
+        <br />
+        <sub>
+          <b>Ridwan Renaldi</b>
+        </sub>
+      </a>
+      <br />
+      <a href="#question-CompuIves" title="Answering Questions">💬</a> 
+      <a href="https://github.com/codesandbox/codesandbox-client/commits?author=CompuIves" title="Code">💻</a> 
+      <a href="#design-CompuIves" title="Design">🎨</a> 
+      <a href="https://github.com/codesandbox/codesandbox-client/commits?author=CompuIves" title="Documentation">📖</a> 
+    </td>
+  </tr>
+</table>
